@@ -5,6 +5,9 @@ import axios from 'axios';
 const API = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL || ''}`,
   withCredentials: true,
+   headers: {
+    'x-vercel-protection-bypass': 'Y09esh@123itc'
+  }
 });
 
 // Attach access token to every request
