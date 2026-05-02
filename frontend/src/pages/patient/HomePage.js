@@ -24,9 +24,26 @@ export default function HomePage() {
   const { addToCart, isInCart } = useCart();
 
   useEffect(() => {
-    getCategories().then(r => setCategories(r.data.categories.slice(0, 6)));
-    getTests().then(r => setPopularTests(r.data.tests.slice(0, 6)));
-  }, []);
+  getCategories()
+    .then(r => {
+      console.log('categories response:', r.data); // 👈 check this
+      setCategories((r.data?.categories || []).slice(0, 6));
+    })
+    .catch(err => {
+      console.error('categories error:', err); // 👈 and this
+      setCategories([]);
+    });
+
+  getTests()
+    .then(r => {
+      console.log('tests response:', r.data); // 👈 check this
+      setPopularTests((r.data?.tests || []).slice(0, 6));
+    })
+    .catch(err => {
+      console.error('tests error:', err);
+      setPopularTests([]);
+    });
+}, []);
 
   const handleAddToCart = (test) => {
     addToCart(test);
